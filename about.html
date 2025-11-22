@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Me - Hemal Shah</title>
+    <meta name="description" content="Learn more about Hemal Shah, an AI Engineer and Python Developer with expertise in Machine Learning, Automation, and Web Development.">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Core Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.4.0/echarts.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css">
+    
+    <!-- Custom Styles -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .glass-nav {
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .gradient-text {
+            background: linear-gradient(45deg, #3b82f6, #8b5cf6, #06b6d4);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 3s ease-in-out infinite;
+        }
+        
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        
+        .hover-lift {
+            transition: all 0.3s ease;
+        }
+        
+        .hover-lift:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+            transition: all 0.6s ease;
+        }
+        
+        .skill-chart {
+            height: 300px;
+        }
+        
+        .timeline-item {
+            position: relative;
+            padding-left: 2rem;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0.5rem;
+            width: 12px;
+            height: 12px;
+            background: #3b82f6;
+            border-radius: 50%;
+            border: 3px solid white;
+            box-shadow: 0 0 0 3px #3b82f6;
+        }
+        
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            left: 5px;
+            top: 1.5rem;
+            width: 2px;
+            height: calc(100% - 1rem);
+            background: linear-gradient(to bottom, #3b82f6, transparent);
+        }
+        
+        .timeline-item:last-child::after {
+            display: none;
+        }
+        
+        .dark-mode {
+            background: linear-gradient(135deg, #1f2937 0%, #374151 100%);
+            color: #f9fafb;
+        }
+        
+        .dark-mode .glass-nav {
+            background: rgba(31, 41, 55, 0.8);
+            border-bottom: 1px solid rgba(75, 85, 99, 0.3);
+        }
+        
+        .splide__slide img {
+            border-radius: 1rem;
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body class="transition-colors duration-300">
+    <!-- Navigation -->
+    <nav class="glass-nav fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+        <div class="max-w-6xl mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="text-2xl font-bold text-white">
+                    <a href="index.html">HS<span class="gradient-text">.</span></a>
+                </div>
+                
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="index.html" class="text-white hover:text-blue-300 transition-colors duration-200">Home</a>
+                    <a href="about.html" class="text-blue-300 font-semibold">About</a>
+                    <a href="projects.html" class="text-white hover:text-blue-300 transition-colors duration-200">Projects</a>
+                    <a href="gallery.html" class="text-white hover:text-blue-300 transition-colors duration-200">Gallery</a>
+                    <a href="blogs.html" class="text-white hover:text-blue-300 transition-colors duration-200">Blogs</a>
+                    <a href="contact.html" class="text-white hover:text-blue-300 transition-colors duration-200">Contact</a>
+                </div>
+                
+                <div class="flex items-center space-x-4">
+                    <button id="darkModeToggle" class="p-2 rounded-lg bg-white bg-opacity-20 hover:bg-opacity-30 transition-all duration-200">
+                        <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"/>
+                        </svg>
+                    </button>
+                    
+                    <button id="mobileMenuToggle" class="md:hidden p-2 rounded-lg bg-white bg-opacity-20 hover:bg-opacity-30 transition-all duration-200">
+                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Mobile Menu -->
+            <div id="mobileMenu" class="hidden md:hidden mt-4 pb-4">
+                <div class="flex flex-col space-y-3">
+                    <a href="index.html" class="text-white hover:text-blue-300 transition-colors duration-200">Home</a>
+                    <a href="about.html" class="text-blue-300 font-semibold">About</a>
+                    <a href="projects.html" class="text-white hover:text-blue-300 transition-colors duration-200">Projects</a>
+                    <a href="gallery.html" class="text-white hover:text-blue-300 transition-colors duration-200">Gallery</a>
+                    <a href="blogs.html" class="text-white hover:text-blue-300 transition-colors duration-200">Blogs</a>
+                    <a href="contact.html" class="text-white hover:text-blue-300 transition-colors duration-200">Contact</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="pt-24 pb-12 bg-white dark:bg-gray-800">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="text-center mb-12">
+                <h1 class="text-5xl font-bold text-gray-800 dark:text-white mb-4 reveal">
+                    About <span class="gradient-text">Me</span>
+                </h1>
+                <p class="text-xl text-gray-600 dark:text-gray-300 reveal">
+                    Passionate about building intelligent solutions that make a difference
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Personal Info Section -->
+    <section class="py-16 bg-gray-50 dark:bg-gray-900">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <!-- Image Carousel -->
+                <div class="reveal">
+                    <div class="splide" id="image-carousel">
+                        <div class="splide__track">
+                            <ul class="splide__list">
+                                <li class="splide__slide">
+                                    <img src="resources/profile-1.jpg" alt="Hemal Shah Professional" class="w-full h-96 object-cover">
+                                </li>
+                                <li class="splide__slide">
+                                    <img src="resources/profile-2.jpg" alt="Hemal Working" class="w-full h-96 object-cover">
+                                </li>
+                                <li class="splide__slide">
+                                    <img src="resources/profile-3.jpg" alt="Hemal Presenting" class="w-full h-96 object-cover">
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Bio Content -->
+                <div class="reveal">
+                    <h2 class="text-3xl font-bold text-gray-800 dark:text-white mb-6">
+                        Hi, I'm Hemal Shah
+                    </h2>
+                    <div class="space-y-4 text-gray-600 dark:text-gray-300">
+                        <p class="text-lg leading-relaxed">
+                            I'm a passionate AI Engineer and Python Developer with a strong foundation in Machine Learning, 
+                            Automation, and Full Stack Development. My journey in technology began with a curiosity about 
+                            how intelligent systems can solve real-world problems.
+                        </p>
+                        <p class="leading-relaxed">
+                            Currently, I'm interning at <strong class="text-blue-600 dark:text-blue-400">Prodigy InfoTech</strong>, 
+                            where I'm working on cutting-edge AI solutions and automation workflows. My expertise spans across 
+                            Python development, Django web framework, TensorFlow for machine learning, and n8n for workflow automation.
+                        </p>
+                        <p class="leading-relaxed">
+                            I believe in the power of technology to create positive change. Whether it's building intelligent 
+                            chess engines, automating business processes, or developing web applications, I'm always excited 
+                            to tackle challenging problems and learn new technologies.
+                        </p>
+                        <p class="leading-relaxed">
+                            When I'm not coding, you can find me exploring new AI research, contributing to open-source projects, 
+                            or creating video content that showcases the intersection of technology and creativity.
+                        </p>
+                    </div>
+                    
+                    <!-- Quick Stats -->
+                    <div class="grid grid-cols-2 gap-4 mt-8">
+                        <div class="bg-white dark:bg-gray-800 p-4 rounded-lg text-center hover-lift">
+                            <div class="text-2xl font-bold text-blue-600 dark:text-blue-400">6+</div>
+                            <div class="text-sm text-gray-600 dark:text-gray-300">Projects Completed</div>
+                        </div>
+                        <div class="bg-white dark:bg-gray-800 p-4 rounded-lg text-center hover-lift">
+                            <div class="text-2xl font-bold text-blue-600 dark:text-blue-400">3+</div>
+                            <div class="text-sm text-gray-600 dark:text-gray-300">Years Experience</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Visualization -->
+    <section class="py-16 bg-white dark:bg-gray-800">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="text-center mb-12 reveal">
+                <h2 class="text-4xl font-bold text-gray-800 dark:text-white mb-4">
+                    Technical <span class="gradient-text">Skills</span>
+                </h2>
+                <p class="text-xl text-gray-600 dark:text-gray-300">
+                    Technologies and frameworks I work with
+                </p>
+            </div>
+            
+            <div class="grid lg:grid-cols-2 gap-12">
+                <!-- Skills Chart -->
+                <div class="reveal">
+                    <div class="bg-gray-50 dark:bg-gray-700 p-6 rounded-xl">
+                        <h3 class="text-xl font-semibold text-gray-800 dark:text-white mb-4">Skill Proficiency</h3>
+                        <div id="skillsChart" class="skill-chart"></div>
+                    </div>
+                </div>
+                
+                <!-- Skills List -->
+                <div class="reveal">
+                    <div class="space-y-6">
+                        <!-- Programming Languages -->
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-800 dark:text-white mb-4">Programming Languages</h3>
+                            <div class="space-y-3">
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center">
+                                        <img src="https://kimi-web-img.moonshot.cn/img/1.bp.blogspot.com/8c36a2826c55d1ed8322b8f4b5d30d95fb3923fc.png" alt="Python" class="w-6 h-6 mr-3">
+                                        <span class="text-gray-700 dark:text-gray-300">Python</span>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <div class="w-32 h-2 bg-gray-200 dark:bg-gray-600 rounded-full mr-3">
+                                            <div class="h-full bg-blue-500 rounded-full" style="width: 95%"></div>
+                                        </div>
+                                        <span class="text-sm text-gray-600 dark:text-gray-400">95%</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center">
+                                        <img src="https://kimi-web-img.moonshot.cn/img/upload.wikimedia.org/6ff2d9c7dbd19933ae8c480fe7e9cb743d2cb5d2.png" alt="JavaScript" class="w-6 h-6 mr-3">
+                                        <span class="text-gray-700 dark:text-gray-300">JavaScript</span>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <div class="w-32 h-2 bg-gray-200 dark:bg-gray-600 rounded-full mr-3">
+                                            <div class="h-full bg-blue-500 rounded-full" style="width: 80%"></div>
+                                        </div>
+                                        <span class="text-sm text-gray-600 dark:text-gray-400">80%</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center">
+                                        <img src="https://kimi-web-img.moonshot.cn/img/upload.wikimedia.org/1718a85c8e4feb7f066c2086f591bff9c7e8d694.png" alt="Java" class="w-6 h-6 mr-3">
+                                        <span class="text-gray-700 dark:text-gray-300">Java</span>
+                                    </div>
+                                    <div class="flex items-center">
+                                        <div class="w-32 h-2 bg-gray-200 dark:bg-gray-600 rounded-full mr-3">
+                                            <div class="h-full bg-blue-500 rounded-full" style="width: 70%"></div>
+                                        </div>
+                                        <span class="text-sm text-gray-600 dark:text-gray-400">70%</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Frameworks & Tools -->
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-800 dark:text-white mb-4">Frameworks & Tools</h3>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg hover-lift">
+                                    <div class="flex items-center mb-2">
+                                        <div class="w-8 h-8 bg-green-600 rounded mr-3 flex items-center justify-center text-white font-bold text-sm">D</div>
+                                        <span class="font-medium text-gray-800 dark:text-white">Django</span>
+                                    </div>
+                                    <p class="text-sm text-gray-600 dark:text-gray-300">Web Framework</p>
+                                </div>
+                                
+                                <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg hover-lift">
+                                    <div class="flex items-center mb-2">
+                                        <div class="w-8 h-8 bg-orange-500 rounded mr-3 flex items-center justify-center text-white font-bold text-xs">TF</div>
+                                        <span class="font-medium text-gray-800 dark:text-white">TensorFlow</span>
+                                    </div>
+                                    <p class="text-sm text-gray-600 dark:text-gray-300">ML Framework</p>
+                                </div>
+                                
+                                <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg hover-lift">
+                                    <div class="flex items-center mb-2">
+                                        <div class="w-8 h-8 bg-blue-600 rounded mr-3 flex items-center justify-center text-white font-bold text-xs">n8n</div>
+                                        <span class="font-medium text-gray-800 dark:text-white">n8n</span>
+                                    </div>
+                                    <p class="text-sm text-gray-600 dark:text-gray-300">Automation</p>
+                                </div>
+                                
+                                <div class="bg-gray-50 dark:bg-gray-700 p-4 rounded-lg hover-lift">
+                                    <div class="flex items-center mb-2">
+                                        <img src="https://kimi-web-img.moonshot.cn/img/upload.wikimedia.org/08798480a2715814df9b032440a1a9cd1b1271a1.png" alt="Docker" class="w-8 h-8 mr-3">
+                                        <span class="font-medium text-gray-800 dark:text-white">Docker</span>
+                                    </div>
+                                    <p class="text-sm text-gray-600 dark:text-gray-300">Containerization</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Timeline -->
+    <section class="py-16 bg-gray-50 dark:bg-gray-900">
+        <div class="max-w-4xl mx-auto px-6">
+            <div class="text-center mb-12 reveal">
+                <h2 class="text-4xl font-bold text-gray-800 dark:text-white mb-4">
+                    Journey & <span class="gradient-text">Experience</span>
+                </h2>
+                <p class="text-xl text-gray-600 dark:text-gray-300">
+                    My path in technology and AI development
+                </p>
+            </div>
+            
+            <div class="space-y-8">
+                <!-- Current Position -->
+                <div class="timeline-item reveal">
+                    <div class="bg-white dark:bg-gray-800 p-6 rounded-lg hover-lift">
+                        <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
+                            <h3 class="text-xl font-semibold text-gray-800 dark:text-white">AI Engineering Intern</h3>
+                            <span class="text-blue-600 dark:text-blue-400 font-medium">2024 - Present</span>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-300 mb-3">
+                            <strong class="text-gray-800 dark:text-white">Prodigy InfoTech</strong>
+                        </p>
+                        <p class="text-gray-600 dark:text-gray-300 leading-relaxed">
+                            Working on cutting-edge AI solutions and automation workflows. Developing intelligent systems 
+                            for data processing, implementing machine learning models, and creating automated workflows 
+                            using n8n and Python. Contributing to both client projects and internal R&D initiatives.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mt-4">
+                            <span class="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-full text-sm">Python</span>
+                            <span class="px-3 py-1 bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 rounded-full text-sm">Machine Learning</span>
+                            <span class="px-3 py-1 bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-200 rounded-full text-sm">n8n</span>
+                            <span class="px-3 py-1 bg-orange-100 dark:bg-orange-900 text-orange-800 dark:text-orange-200 rounded-full text-sm">Automation</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Education -->
+                <div class="timeline-item reveal">
+                    <div class="bg-white dark:bg-gray-800 p-6 rounded-lg hover-lift">
+                        <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
+                            <h3 class="text-xl font-semibold text-gray-800 dark:text-white">Computer Science & Engineering</h3>
+                            <span class="text-blue-600 dark:text-blue-400 font-medium">2021 - 2025</span>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-300 mb-3">
+                            <strong class="text-gray-800 dark:text-white">Bachelor's Degree</strong>
+                        </p>
+                        <p class="text-gray-600 dark:text-gray-300 leading-relaxed">
+                            Comprehensive education in computer science fundamentals, algorithms, data structures, 
+                            and software engineering principles. Specialized coursework in artificial intelligence, 
+                            machine learning, and web development technologies.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mt-4">
+                            <span class="px-3 py-1 bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-200 rounded-full text-sm">Data Structures</span>
+                            <span class="px-3 py-1 bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200 rounded-full text-sm">Algorithms</span>
+                            <span class="px-3 py-1 bg-indigo-100 dark:bg-indigo-900 text-indigo-800 dark:text-indigo-200 rounded-full text-sm">AI/ML</span>
+                            <span class="px-3 py-1 bg-pink-100 dark:bg-pink-900 text-pink-800 dark:text-pink-200 rounded-full text-sm">Web Development</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Early Projects -->
+                <div class="timeline-item reveal">
+                    <div class="bg-white dark:bg-gray-800 p-6 rounded-lg hover-lift">
+                        <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
+                            <h3 class="text-xl font-semibold text-gray-800 dark:text-white">Personal Projects & Learning</h3>
+                            <span class="text-blue-600 dark:text-blue-400 font-medium">2020 - Present</span>
+                        </div>
+                        <p class="text-gray-600 dark:text-gray-300 mb-3">
+                            <strong class="text-gray-800 dark:text-white">Self-Directed Learning</strong>
+                        </p>
+                        <p class="text-gray-600 dark:text-gray-300 leading-relaxed">
+                            Continuous learning through personal projects, online courses, and hands-on experimentation. 
+                            Built portfolio projects including chess AI, automation bots, web scrapers, and various 
+                            machine learning applications. Active contributor to open-source projects.
+                        </p>
+                        <div class="flex flex-wrap gap-2 mt-4">
+                            <span class="px-3 py-1 bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-full text-sm">Open Source</span>
+                            <span class="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-full text-sm">Personal Projects</span>
+                            <span class="px-3 py-1 bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 rounded-full text-sm">Continuous Learning</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Personal Interests -->
+    <section class="py-16 bg-white dark:bg-gray-800">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="text-center mb-12 reveal">
+                <h2 class="text-4xl font-bold text-gray-800 dark:text-white mb-4">
+                    Beyond <span class="gradient-text">Code</span>
+                </h2>
+                <p class="text-xl text-gray-600 dark:text-gray-300">
+                    What drives me outside of programming
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="text-center reveal hover-lift bg-gray-50 dark:bg-gray-700 p-8 rounded-xl">
+                    <div class="w-16 h-16 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-800 dark:text-white mb-2">AI Research</h3>
+                    <p class="text-gray-600 dark:text-gray-300">
+                        Staying current with the latest developments in artificial intelligence and machine learning through research papers and experiments.
+                    </p>
+                </div>
+                
+                <div class="text-center reveal hover-lift bg-gray-50 dark:bg-gray-700 p-8 rounded-xl">
+                    <div class="w-16 h-16 bg-green-100 dark:bg-green-900 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-800 dark:text-white mb-2">Video Creation</h3>
+                    <p class="text-gray-600 dark:text-gray-300">
+                        Creating engaging video content that showcases technology projects, tutorials, and the creative aspects of programming.
+                    </p>
+                </div>
+                
+                <div class="text-center reveal hover-lift bg-gray-50 dark:bg-gray-700 p-8 rounded-xl">
+                    <div class="w-16 h-16 bg-purple-100 dark:bg-purple-900 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8 text-purple-600 dark:text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-800 dark:text-white mb-2">Open Source</h3>
+                    <p class="text-gray-600 dark:text-gray-300">
+                        Contributing to open-source projects and sharing knowledge with the developer community through code and documentation.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 dark:bg-black text-white py-12">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="text-center">
+                <div class="text-3xl font-bold mb-4">
+                    HS<span class="gradient-text">.</span>
+                </div>
+                <p class="text-gray-400 mb-6">
+                    AI Engineer • Python Developer • ML & Automation Enthusiast
+                </p>
+                <div class="flex justify-center space-x-6 mb-8">
+                    <a href="https://github.com/hemalshah" target="_blank" class="text-gray-400 hover:text-white transition-colors duration-200">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                        </svg>
+                    </a>
+                    <a href="https://linkedin.com/in/hemalshah" target="_blank" class="text-gray-400 hover:text-white transition-colors duration-200">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                        </svg>
+                    </a>
+                    <a href="mailto:hemal@example.com" class="text-gray-400 hover:text-white transition-colors duration-200">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                        </svg>
+                    </a>
+                </div>
+                <div class="border-t border-gray-800 pt-8">
+                    <p class="text-gray-400 text-sm">
+                        © 2024 Hemal Shah. All rights reserved. Built with passion and code.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="main.js"></script>
+    <script>
+        // Initialize page-specific functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize image carousel
+            new Splide('#image-carousel', {
+                type: 'loop',
+                autoplay: true,
+                interval: 4000,
+                pauseOnHover: true,
+                arrows: false,
+                pagination: true,
+            }).mount();
+            
+            // Initialize skills chart
+            initializeSkillsChart();
+        });
+        
+        // Skills chart using ECharts
+        function initializeSkillsChart() {
+            const chartDom = document.getElementById('skillsChart');
+            const myChart = echarts.init(chartDom);
+            
+            const option = {
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: {
+                        type: 'shadow'
+                    }
+                },
+                grid: {
+                    left: '3%',
+                    right: '4%',
+                    bottom: '3%',
+                    containLabel: true
+                },
+                xAxis: {
+                    type: 'value',
+                    max: 100,
+                    axisLabel: {
+                        color: '#6b7280'
+                    }
+                },
+                yAxis: {
+                    type: 'category',
+                    data: ['Docker', 'n8n', 'TensorFlow', 'Django', 'JavaScript', 'Python'],
+                    axisLabel: {
+                        color: '#6b7280'
+                    }
+                },
+                series: [{
+                    name: 'Proficiency',
+                    type: 'bar',
+                    data: [75, 88, 85, 90, 80, 95],
+                    itemStyle: {
+                        color: new echarts.graphic.LinearGradient(0, 0, 1, 0, [
+                            { offset: 0, color: '#3b82f6' },
+                            { offset: 1, color: '#8b5cf6' }
+                        ])
+                    },
+                    barWidth: '60%'
+                }]
+            };
+            
+            myChart.setOption(option);
+            
+            // Responsive chart
+            window.addEventListener('resize', () => {
+                myChart.resize();
+            });
+        }
+    </script>
+</body>
+</html>
